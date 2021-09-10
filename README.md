@@ -1,2 +1,2 @@
 # Dominó 
-Projeto de um jogo de dominó para a PUC-SP
+Projeto de um trabalho sobre um jogo de dominó utilizando MVC para a PUC-SP.
