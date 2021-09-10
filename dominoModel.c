@@ -358,13 +358,14 @@ void gravarJogo(int jogador){
         fwrite(&mesaDeJogo, sizeof(mesaDeJogo), 1, jogo);
         fwrite(&jogador1, sizeof(jogador1), 1, jogo);
         fwrite(&jogador2, sizeof(jogador2), 1, jogo);
-        fwrite(&j, sizeof(int), 1, jogo);
+        fwrite(&j, sizeof(int), 1, jogo); //quem jogou por último
     }
 
     fclose(jogo);
 }
 
 int lerJogo(){
+
     FILE *jogo;
     int j;
     jogo = fopen("dominoSalvar.dat", "r+b");
@@ -373,7 +374,8 @@ int lerJogo(){
         fread(&pecas, sizeof(pecas), 1, jogo);
         fread(&mesaDeJogo, sizeof(mesaDeJogo), 1, jogo);
         fread(&jogador1, sizeof(jogador1), 1, jogo);
-        j = fread(&jogador2, sizeof(jogador2), 1, jogo);
+        fread(&jogador2, sizeof(jogador2), 1, jogo);
+        j = fread(&jogador2, sizeof(jogador2), 1, jogo); //lê quem jogou por último
     }
 
     fclose(jogo);
