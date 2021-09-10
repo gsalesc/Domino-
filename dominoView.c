@@ -216,3 +216,16 @@ bool verRegras(){
     return fechar;
 }
 
+void printOpcaoInvalida(){
+    printf("\n   Opcão do menu inválida! \n");
+}
+
+void printSelectPecas(){
+    printf("\n   Selecione uma peça:  \n");
+}
+
+void printErroPecas(){
+    printf("\n    Não há peças, é necessário comprar!");
+}
+
+

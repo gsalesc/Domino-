@@ -2,7 +2,7 @@
 #define DOMINOVIEW_H_INCLUDED
 #include <stdbool.h>
 
-//assinatura das funÃ§Ãµes para repassar como uma biblioteca
+//assinatura das funções para repassar como uma biblioteca
 
 int menuInicialJogo();
 int totalJogadores();
@@ -24,5 +24,6 @@ bool verRegras();
 void printOpcaoInvalida();
 void printSelectPecas();
 void printErroPecas();
+
 
 #endif // DOMINOVIEW_H_INCLUDED

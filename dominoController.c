@@ -43,7 +43,7 @@ void inicializarController()
                 break;
 
             default:
-                printf("Opcão do menu inválida! \n");
+                printOpcaoInvalida();
         }
     }
     while (!fim);
@@ -92,7 +92,7 @@ bool prepararJogo()
 
     else if(op != 7 && op != 8)
     {
-        printf("\n   Opção inválida!!! ");
+        printOpcaoInvalida();
         prepararJogo();
     }
 
@@ -150,7 +150,7 @@ void movimentosJogadores(int jogador){
                     int p1, p2;
 
                     //selecionar peça para jogar
-                        printf("\n   Selecione uma peça:  \n");
+                        printSelectPecas();
                         mostrarPecasJogador1();
 
                         scanf("%d%d", &p1, &p2);
@@ -161,7 +161,8 @@ void movimentosJogadores(int jogador){
                         trocarSentinelasJ1(p1, p2); //trocar peças jogadas pelo jogador
 
                     else{
-                        printf("\n    Não há peças, é necessário comprar!");
+
+                        printErroPecas();
                         opcoesJogador1();
                     }
                 }
@@ -213,7 +214,7 @@ void movimentosJogadores(int jogador){
                     int p1, p2;
 
                     //selecionar peça para jogar
-                        printf("\n   Selecione uma peça:  \n");
+                        printSelectPecas();
                         mostrarPecasJogador2();
 
                         scanf("%d%d", &p1, &p2);
@@ -226,7 +227,7 @@ void movimentosJogadores(int jogador){
 
                     else
                     {
-                        printf("\n    Não há peças, é necessário comprar!");
+                        printErroPecas();
                         opcoesJogador2();
                     }
                 }
