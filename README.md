@@ -1,3 +1,2 @@
 # Dominó 
-Jogo de Dominó - LP
-PUC-SP (2021)
+Projeto de um jogo de dominó para a PUC-SP
