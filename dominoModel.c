@@ -17,11 +17,11 @@ void iniciarPecas()
     {
         for(int j = i; j <= 6; j++)
         {
-            //atribuindo os valores para cada peÃ§a
+            //atribuindo os valores para cada peça
             pecas[contPecas].p1 = i;
             pecas[contPecas].p2 = j;
             pecas[contPecas].Vh = j+i*10;
-            //mostrando as peÃ§as
+            //mostrando as peças
             //printf("%d%d ", pecas[contPecas].p1, pecas[contPecas].p2);
             contPecas++;
         }
@@ -58,7 +58,7 @@ void iniciarMesaDeJogo()
     while(contPecas < 42)
     {
 
-        //atribuindo os valores para cada peÃ§a
+        //atribuindo os valores para cada peça
         mesaDeJogo[contPecas].p1 = 9;
         mesaDeJogo[contPecas].p2 = 9;
         contPecas++;
@@ -262,12 +262,12 @@ bool jogadaJogador1(int a, int b) //jogador 1 jogando
     int p1 = a;
     int p2 = b;
 
-    //verficar se a peÃ§a Ã© vÃ¡lida
+    //verficar se a peça é válida
     for(int i = 0; i < 14; i++)
         if(jogador1.pecasJogadores[i].p1 == p1 && jogador1.pecasJogadores[i].p2 == p2)
             pecaOk = true;
 
-    //colocar peÃ§a na mesa de jogo
+    //colocar peça na mesa de jogo
     if(pecaOk == true)
         jogou = verificandoNaMesa(p1, p2);
 
@@ -279,7 +279,7 @@ void trocarSentinelasJ1(int a, int b){
     int p1 = a;
     int p2 = b;
 
-    //trocar sentinela nas peÃ§as
+    //trocar sentinela nas peças
         for(int i = 0; i < 14; i++)
             if(jogador1.pecasJogadores[i].p1 == p1 && jogador1.pecasJogadores[i].p2 == p2)
             {
@@ -296,12 +296,12 @@ bool jogadaJogador2(int a, int b) //jogador 1 jogando
     int p2 = b;
     int pecaOk = false;
 
-    //verficar se a peÃ§a Ã© vÃ¡lida na mÃ£o do jogador
+    //verficar se a peça é válida na mão do jogador
     for(int i = 0; i < 14; i++)
         if(jogador2.pecasJogadores[i].p1 == p1 && jogador2.pecasJogadores[i].p2 == p2)
             pecaOk = true;
 
-    //colocar peÃ§a na mesa de jogo
+    //colocar peça na mesa de jogo
     if(pecaOk == true)
         jogou = verificandoNaMesa(p1, p2);
 
@@ -313,7 +313,7 @@ void trocarSentinelasJ2(int a, int b){
 
     int p1 = a;
     int p2 = b;
-    //trocar sentinela nas peÃ§as
+    //trocar sentinela nas peças
         for(int i = 0; i < 14; i++)
             if(jogador2.pecasJogadores[i].p1 == p1 && jogador2.pecasJogadores[i].p2 == p2)
             {
@@ -322,10 +322,10 @@ void trocarSentinelasJ2(int a, int b){
             }
 }
 
-//COLOCANDO PEÃ‡AS NA MESA
-//AINDA COM PROBLEMAS PRA IR PARA O LADO QUE O JOGADOR QUER QUANDO Ã‰ POSSÃVEL
+//COLOCANDO PEÇAS NA MESA
+//AINDA COM PROBLEMAS PRA IR PARA O LADO QUE O JOGADOR QUER QUANDO É POSSÍVEL
 
-void colocandoNaMesa(int l, int p, int a, int b){ //lado, posiÃ§Ã£o, p1, p2
+void colocandoNaMesa(int l, int p, int a, int b){ //lado, posição, p1, p2
 
     int lado = l;
     int pos = p;
@@ -349,7 +349,7 @@ void colocandoNaMesa(int l, int p, int a, int b){ //lado, posiÃ§Ã£o, p1, p2
 void gravarJogo(int jogador){
 
     FILE *jogo;
-    int j = jogador;
+    jogadorSalvar.j = jogador;
 
     jogo = fopen("dominoSalvar.dat", "w+b");
 
@@ -358,7 +358,7 @@ void gravarJogo(int jogador){
         fwrite(&mesaDeJogo, sizeof(mesaDeJogo), 1, jogo);
         fwrite(&jogador1, sizeof(jogador1), 1, jogo);
         fwrite(&jogador2, sizeof(jogador2), 1, jogo);
-        fwrite(&j, sizeof(int), 1, jogo); //quem jogou por Ãºltimo
+        fwrite(&jogadorSalvar, sizeof(int), 1, jogo); //quem jogou por último
     }
 
     fclose(jogo);
@@ -375,7 +375,7 @@ int lerJogo(){
         fread(&mesaDeJogo, sizeof(mesaDeJogo), 1, jogo);
         fread(&jogador1, sizeof(jogador1), 1, jogo);
         fread(&jogador2, sizeof(jogador2), 1, jogo);
-        j = fread(&jogador2, sizeof(int), 1, jogo); //lÃª quem jogou por Ãºltimo
+        j = fread(&jogadorSalvar, sizeof(int), 1, jogo); //lê quem jogou por último
     }
 
     fclose(jogo);

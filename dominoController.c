@@ -9,26 +9,22 @@
 
 //CONTROLE DO JOGO
 
-int opcao;
-bool fim = true;
-bool entradaValida = false;
-int jogador;
 
 void inicializarController()
 {
+    bool fim = true;
     do
     {
         int opcao = menuInicialJogo(); //retornando a opção para fazer o switch do menu
-        int jogador;
 
         switch (opcao)
         {
+            int jogador;
             case 1:
                 fim = comecarJogo();
                 break;
             case 2:
                 jogador = carregarJogo();
-
                     if (jogador == 1 || jogador == 2)
                         movimentosJogadores(jogador);
                     else
@@ -102,7 +98,7 @@ bool prepararJogo()
 void jogoPrincipal()
 {
     //verificar peça maior
-    jogador = verificarPecaInicial(); //quem começa
+    int jogador = verificarPecaInicial(); //quem começa
 
     //Jogo
     movimentosJogadores(jogador);
@@ -112,10 +108,12 @@ void movimentosJogadores(int jogador){
 
     bool jogador1Ganhou = false;
     bool jogador2Ganhou = false;
+    int jg = jogador;
+
     do
     {
         //JOGADOR 1
-        if(jogador == 2)  //invertendo quem começa a jogar, pois quem tem a mais alta joga primeiro
+        if(jg == 2)  //invertendo quem começa a jogar, pois quem tem a mais alta joga primeiro
         {
             bool jogador1Jogou = false;
 
@@ -155,13 +153,12 @@ void movimentosJogadores(int jogador){
 
                         scanf("%d%d", &p1, &p2);
 
-                    bool jogador1Jogou = jogadaJogador1(p1, p2); //jogada do jogador
+                        jogador1Jogou = jogadaJogador1(p1, p2);
 
                     if(jogador1Jogou == true)
                         trocarSentinelasJ1(p1, p2); //trocar peças jogadas pelo jogador
-
-                    else{
-
+                    else
+                    {
                         printErroPecas();
                         opcoesJogador1();
                     }
@@ -175,11 +172,11 @@ void movimentosJogadores(int jogador){
             if(contRestantesJ1 == 0)
                 jogador1Ganhou = true;
             else
-                jogador = 1; //trocando a vez
+                jg = 1; //trocando a vez
         }
 
         //JOGADOR 2
-        else if(jogador == 1)
+        else if(jg == 1)
         {
             bool jogador2Jogou = false;
 
@@ -221,10 +218,8 @@ void movimentosJogadores(int jogador){
 
                         jogador2Jogou = jogadaJogador2(p1, p2);
 
-                    if(jogador2Jogou == true){
+                    if(jogador2Jogou == true)
                         trocarSentinelasJ2(p1, p2); //trocar peças jogadas pelo jogador
-                    }
-
                     else
                     {
                         printErroPecas();
@@ -235,12 +230,12 @@ void movimentosJogadores(int jogador){
             while(jogador2Jogou == false);
 
             //contar peças na sentinela, para verificar quem ganhou
-                int contRestantesJ2 = contarRestantesJ2();
+            int contRestantesJ2 = contarRestantesJ2();
 
-                if(contRestantesJ2 == 0)
-                    jogador2Ganhou = true;
-                else
-                    jogador = 2; //trocando a vez
+            if(contRestantesJ2 == 0)
+                jogador2Ganhou = true;
+            else
+                jg = 2; //trocando a vez
 
         }
     }
@@ -494,8 +489,8 @@ void salvarJogo(int jogador){
 }
 
 int carregarJogo(){
-    int jogador;
     int simNao = opCarregar();
+    int jogador;
 
     if(simNao == 1)
         jogador = lerJogo();

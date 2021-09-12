@@ -17,11 +17,17 @@ typedef struct
     pecasDomino pecasJogadores[14]; //7 peças
 } jogadores; //jogadores
 
+typedef struct{
+    int j;
+} salvarJogador; //salvar quem jogou por último
+
 pecasDomino pecas[28]; //peças totais //
 
 pecasDomino mesaDeJogo[42]; //mesa do jogo
 
 pecasDomino monteComprar[14]; //peças restantes para compra
+
+salvarJogador jogadorSalvar;
 
 jogadores jogador1; //jogador 1 com 7 peças
 jogadores jogador2; //jogador 2 (computador também) com 7 peças
