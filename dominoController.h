@@ -16,5 +16,7 @@ int carregarJogo();
 void jogadorVsJogador(int jogador);
 void jogadorVsComputador(int jogador);
 void temporizador();
+void verificarEmpateTecnico(bool computador);
+void calcularEmpate(bool computador);
 
 #endif // DOMINOCONTROLLER_H_INCLUDED

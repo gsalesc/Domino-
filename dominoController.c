@@ -10,7 +10,8 @@
 
 //CONTROLE DO JOGO
 
-void inicializarController(){
+void inicializarController()
+{
     bool fim = true;
     do
     {
@@ -44,14 +45,16 @@ void inicializarController(){
     while (!fim);
 }
 
-void prepararPecasJogo(){
+void prepararPecasJogo()
+{
     iniciarPecas();
     iniciarP1();
     iniciarP2();
     iniciarMesaDeJogo();
 }
 
-bool comecarJogo(){
+bool comecarJogo()
+{
     bool jogoRolando = true;
     int jogadores = totalJogadores();
 
@@ -66,7 +69,8 @@ bool comecarJogo(){
     return jogoRolando;
 }
 
-bool prepararJogo(int jogadores){
+bool prepararJogo(int jogadores)
+{
     prepararPecasJogo();
     montarPecasJogador1();
     montarPecasJogador2();
@@ -90,7 +94,8 @@ bool prepararJogo(int jogadores){
     return voltarMenu;
 }
 
-void jogoPrincipal(int jogadores){
+void jogoPrincipal(int jogadores)
+{
     int jg = jogadores; //quantos jogadores no jogo
 
 
@@ -104,14 +109,16 @@ void jogoPrincipal(int jogadores){
         jogadorVsComputador(jogador);
 }
 
-void jogadorVsJogador(int jogador){ //jogador vs jogador
-
+void jogadorVsJogador(int jogador)  //jogador vs jogador
+{
     bool jogador1Ganhou = false; //jogador 1
     bool jogador2Ganhou = false; //jogador 2
     int jg = jogador;
+    int empate;
 
     do
     {
+
         //JOGADOR 1
         if(jg == 2)  //invertendo quem começa a jogar, pois quem tem a mais alta joga primeiro
         {
@@ -172,17 +179,20 @@ void jogadorVsJogador(int jogador){ //jogador vs jogador
                 }
             }
             while(jogador1Jogou == false);
+
+            //contar peças na sentinela, para verificar quem ganhou
+            int contRestantesJ1 = contarRestantesJ1();
+
+            if(contRestantesJ1 == 0)
+            {
+                jogador1Ganhou = true;
+                limparMesa();
+            }
+            else
+                jg = 1; //trocando a vez
         }
 
-        //contar peças na sentinela, para verificar quem ganhou
-        int contRestantesJ1 = contarRestantesJ1();
-
-        if(contRestantesJ1 == 0){
-            jogador1Ganhou = true;
-            limparMesa();
-        }
-        else
-            jg = 1; //trocando a vez
+        verificarEmpateTecnico(false);
 
         //JOGADOR 2
         if(jg == 1)
@@ -245,30 +255,41 @@ void jogadorVsJogador(int jogador){ //jogador vs jogador
             }
             while(jogador2Jogou == false);
         }
+
         //contar peças na sentinela, para verificar quem ganhou
         int contRestantesJ2 = contarRestantesJ2();
 
-        if(contRestantesJ2 == 0){
+        if(contRestantesJ2 == 0)
+        {
             jogador2Ganhou = true;
             limparMesa();
         }
+
         else
             jg = 2; //trocando a vez
+
+        verificarEmpateTecnico(false);
     }
     while (jogador1Ganhou == false && jogador2Ganhou == false);
 
-    if(jogador1Ganhou == true){
+    if(jogador1Ganhou == true)
+    {
         jg = 1;
+        limparMesa();
         printVencedor(jg, false);
     }
 
-    else{
+    else
+    {
         jg = 2;
+        limparMesa();
         printVencedor(jg, false);
     }
+
 }
 
-void jogadorVsComputador(int jogador){ //jogador vs computador
+void jogadorVsComputador(int jogador)  //jogador vs computador
+{
 
     bool jogador1Ganhou = false; //jogador 1
     bool jogador2Ganhou = false; //computador
@@ -277,6 +298,7 @@ void jogadorVsComputador(int jogador){ //jogador vs computador
 
     do
     {
+
         //JOGADOR 1
         if(jg == 2)  //invertendo quem começa a jogar, pois quem tem a mais alta joga primeiro
         {
@@ -340,15 +362,18 @@ void jogadorVsComputador(int jogador){ //jogador vs computador
             while(jogador1Jogou == false);
         }
 
-            //contar peças na sentinela, para verificar quem ganhou
+        //contar peças na sentinela, para verificar quem ganhou
         int contRestantesJ1 = contarRestantesJ1();
 
-        if(contRestantesJ1 == 0){
+        if(contRestantesJ1 == 0)
+        {
             jogador1Ganhou = true;
             limparMesa();
         }
         else
             jg = 1; //trocando a vez
+
+        verificarEmpateTecnico(false);
 
         //COMPUTADOR
         if(jg == 1)
@@ -392,31 +417,37 @@ void jogadorVsComputador(int jogador){ //jogador vs computador
             comp = printPecasRestantesComp();
         }
 
-        if(comp == 0){
+        if(comp == 0)
+        {
             jogador2Ganhou = true;
             limparMesa();
         }
         else
             jg = 2; //trocando a vez
 
+        verificarEmpateTecnico(true);
     }
     while (jogador1Ganhou == false && jogador2Ganhou == false);
 
 
-    if(jogador1Ganhou == true){
+    if(jogador1Ganhou == true)
+    {
         jg = 1;
+        limparMesa();
         printVencedor(jg, false);
     }
-    else{
+
+    else
+    {
         jg = 2;
-        comp = printPecasRestantesComp();
         printVencedor(jg, true);
     }
 
     inicializarController();
 }
 
-int verificarPecaInicial(){
+int verificarPecaInicial()
+{
     int jogador;
     int pecaMaisAltaJ1 = 0;
     int pecaMaisAltaJ2 = 0;
@@ -535,7 +566,8 @@ int verificarPecaInicial(){
     return jogador; //retorna quem possui a peça 66 ou a mais alta
 }
 
-int contarRestantesJ1(){
+int contarRestantesJ1()
+{
 
     int cont = 0;
     for(int i = 0; i < 14; i++)
@@ -547,7 +579,8 @@ int contarRestantesJ1(){
     return cont;
 }
 
-int contarRestantesJ2(){
+int contarRestantesJ2()
+{
 
     int cont = 0;
     for(int i = 0; i < 14; i++)
@@ -559,7 +592,8 @@ int contarRestantesJ2(){
     return cont;
 }
 
-bool verificandoNaMesa(int a, int b, bool computador){ //parâmetro computador para verificar se é o computador jogando
+bool verificandoNaMesa(int a, int b, bool computador)  //parâmetro computador para verificar se é o computador jogando
+{
 
     bool colocou = true;
     int lado = 0;
@@ -582,7 +616,8 @@ bool verificandoNaMesa(int a, int b, bool computador){ //parâmetro computador pa
 
     if(pecaEsq == pecaDir)
     {
-        if(comp == false){
+        if(comp == false)
+        {
             lado = posicaoMesa();
 
             if(lado == 1)
@@ -611,7 +646,8 @@ bool verificandoNaMesa(int a, int b, bool computador){ //parâmetro computador pa
             }
         }
 
-        else{
+        else
+        {
 
             while(lado == 0)
                 lado = rand() % 3;
@@ -645,7 +681,8 @@ bool verificandoNaMesa(int a, int b, bool computador){ //parâmetro computador pa
     else if((pecaEsq == p1 || pecaEsq == p2) && (pecaDir == p1 || pecaDir == p2))
     {
 
-        if(comp == false){
+        if(comp == false)
+        {
             lado = posicaoMesa();
 
             if(lado == 1)
@@ -674,7 +711,8 @@ bool verificandoNaMesa(int a, int b, bool computador){ //parâmetro computador pa
             }
         }
 
-        else{
+        else
+        {
 
             while(lado == 0)
                 lado = rand() % 3;
@@ -723,7 +761,8 @@ bool verificandoNaMesa(int a, int b, bool computador){ //parâmetro computador pa
     return colocou;
 }
 
-int posicaoPecaComputador(){
+int posicaoPecaComputador()
+{
     int contEsquerda = 0;
     int contDireita = 27;
 
@@ -764,14 +803,16 @@ int posicaoPecaComputador(){
     return pos;
 }
 
-void salvarJogo(int jogador){
+void salvarJogo(int jogador)
+{
     int simNao = opSalvar();
 
     if(simNao == 1)
         gravarJogo(jogador);
 }
 
-int carregarJogo(){
+int carregarJogo()
+{
     int simNao = opCarregar();
     int jogador;
 
@@ -781,16 +822,76 @@ int carregarJogo(){
     return jogador;
 }
 
-void temporizador(){
+void verificarEmpateTecnico(bool computador)
+{
+    int temPecaJ1 = 0;
+    int temPecaJ2 = 0;
+    int empate = 1;
+    bool comp = computador;
 
-   float delay1 = 2.0;
+    int contEsquerda;
+    int contDireita;
 
-   float inst1=0, inst2=0;
+    while(mesaDeJogo[contEsquerda].p1 == 9)
+        contEsquerda++;
 
-   inst1 = (float)clock()/(float)CLOCKS_PER_SEC;
+    while(mesaDeJogo[contDireita].p1 == 9)
+        contDireita--;
 
-   while (inst2-inst1<delay1) inst2 = (float)clock()/(float)CLOCKS_PER_SEC;
+    int pecaEsq = mesaDeJogo[contEsquerda].p1;
+    int pecaDir = mesaDeJogo[contDireita].p2;
 
-   return;
+    for(int i = 0; i <= 14; i++)
+        if((jogador1.pecasJogadores[i].p1 == pecaEsq || jogador1.pecasJogadores[i].p1 == pecaDir) && (jogador1.pecasJogadores[i].p2 == pecaEsq || jogador1.pecasJogadores[i].p2 == pecaDir))
+            temPecaJ1 = 1;
+
+    for(int i = 0; i <= 14; i++)
+        if((jogador2.pecasJogadores[i].p1 == pecaEsq || jogador2.pecasJogadores[i].p1 == pecaDir) && (jogador2.pecasJogadores[i].p2 == pecaEsq || jogador2.pecasJogadores[i].p2 == pecaDir))
+            temPecaJ2 = 1;
+
+    if(temPecaJ1 == 0 && temPecaJ2 == 0)
+        calcularEmpate(comp);
+
+}
+
+void calcularEmpate(bool computador)
+{
+    int contJ1 = 0;
+    int contJ2 = 0;
+    bool comp = computador;
+
+    for(int i = 0; i < 14; i++)
+    {
+        if(jogador1.pecasJogadores[i].p1 != 9 && jogador1.pecasJogadores[i].p2 != 9)
+            contJ1 += jogador1.pecasJogadores[i].Vh;
+    }
+
+    for(int i = 0; i < 14; i++)
+    {
+        if(jogador1.pecasJogadores[i].p1 != 9 && jogador1.pecasJogadores[i].p2 != 9)
+            contJ1 += jogador1.pecasJogadores[i].Vh;
+    }
+
+    if(contJ1 > contJ2)
+        printVencedor(1, false);
+
+    else if(contJ1 < contJ2)
+        printVencedor(2, comp);
+
+    inicializarController();
+}
+
+void temporizador()
+{
+
+    float delay1 = 2.0;
+
+    float inst1=0, inst2=0;
+
+    inst1 = (float)clock()/(float)CLOCKS_PER_SEC;
+
+    while (inst2-inst1<delay1) inst2 = (float)clock()/(float)CLOCKS_PER_SEC;
+
+    return;
 }
 
